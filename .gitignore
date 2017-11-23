@@ -1,0 +1,15 @@
+target/
+.project
+.classpath
+.settings/
+.idea
+*.iml
+*.ipr
+*.iws
+src/main/resources/git.properties
+.DS_Store
+log/
+logs/
+*.pid
+*.log
+*.sh
