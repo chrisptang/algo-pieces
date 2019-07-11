@@ -1,7 +1,5 @@
 package com.tangp.algo.pieces;
 
-import java.util.ArrayList;
-
 /**
  * 单向链表的反转；
  * 时间复杂度O(n), 空间复杂度O(1);
@@ -10,11 +8,19 @@ import java.util.ArrayList;
  */
 public class LinkInversion {
     static class Node<T> {
-        private T data;
+        private final T data;
         private Node<T> next;
 
         public Node(T data) {
             this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            if (null != next) {
+                return data + " -> " + next.toString();
+            }
+            return data + " -> null;";
         }
     }
 
@@ -33,19 +39,27 @@ public class LinkInversion {
         return head;
     }
 
-    public static void main(String[] args) {
-        Node<Integer> link = new Node<>(1);
-        link.next = new Node<>(2);
-        link.next.next = new Node<>(3);
-        link.next.next.next = new Node<>(4);
-        link.next.next.next.next = new Node<>(5);
-
-        ArrayList<String> linkData = new ArrayList<>();
-        link = inverseLink(link);
-        while (link != null) {
-            linkData.add(String.valueOf(link.data));
-            link = link.next;
+    protected static <T> Node<T> reverseLink(Node<T> head) {
+        if (null == head || null == head.next) {
+            return head;
         }
-        System.out.println(String.join(" -> ", linkData));
+        Node temp = head.next;
+        Node result = reverseLink(temp);
+        temp.next = head;
+        head.next = null;
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(5), t = head;
+        int i = 5;
+        while (i-- > 0) {
+            t.next = new Node(i);
+            t = t.next;
+        }
+
+        System.out.println("Original link:" + head.toString());
+        head = reverseLink(head);
+        System.out.println("Reversed link:" + head.toString());
     }
 }
