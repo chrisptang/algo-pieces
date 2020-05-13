@@ -53,6 +53,12 @@ public class SumTripletsNumbers {
         return new ArrayList<>(resultMap.values());
     }
 
+    /**
+     * 先排序，再查找
+     *
+     * @param num
+     * @return
+     */
     public static List<List<Integer>> threeSum3(int[] num) {
         long started = System.currentTimeMillis();
         Arrays.sort(num);

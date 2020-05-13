@@ -13,3 +13,5 @@ logs/
 *.pid
 *.log
 *.sh
+*.class
+local-tests/heap-dump/

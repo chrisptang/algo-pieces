@@ -18,7 +18,7 @@ public class LinkInversion {
         }
     }
 
-    public static <T> Node<T> inverseLink(Node<T> link) {
+    public static <T> Node<T> reverseLink(Node<T> link) {
         if (link == null || link.next == null) {
             return link;
         }
@@ -33,6 +33,22 @@ public class LinkInversion {
         return head;
     }
 
+    public static <T> Node<T> reverseLink2(Node<T> link) {
+        if (link == null || link.next == null) {
+            return link;
+        }
+
+        Node<T> head = link;
+        Node<T> rest = reverseLink2(head.next);
+        head.next.next = head;
+
+        /* tricky step -- see the diagram */
+        head.next = null;
+
+        /* fix the head pointer */
+        return rest;
+    }
+
     public static void main(String[] args) {
         Node<Integer> link = new Node<>(1);
         link.next = new Node<>(2);
@@ -41,7 +57,7 @@ public class LinkInversion {
         link.next.next.next.next = new Node<>(5);
 
         ArrayList<String> linkData = new ArrayList<>();
-        link = inverseLink(link);
+        link = reverseLink2(link);
         while (link != null) {
             linkData.add(String.valueOf(link.data));
             link = link.next;

@@ -1,5 +1,6 @@
 package com.tangp.algo.pieces;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,9 +59,7 @@ public class FindingRepeatableNumber {
         ArraySorting.qSort(arr, 0, arr.length - 1);
         int[] out = find(arr, 10);
         if (out != null && out.length > 0) {
-            for (int i : out) {
-                System.out.println(i);
-            }
+            System.out.println(Arrays.toString(out));
         }
     }
 }
