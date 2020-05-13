@@ -1,7 +1,5 @@
 package com.tangp.algo.pieces;
 
-import java.util.ArrayList;
-
 /**
  * 单向链表的反转；
  * 时间复杂度O(n), 空间复杂度O(1);
@@ -10,11 +8,19 @@ import java.util.ArrayList;
  */
 public class LinkInversion {
     static class Node<T> {
-        private T data;
+        private final T data;
         private Node<T> next;
 
         public Node(T data) {
             this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            if (null != next) {
+                return data + " -> " + next.toString();
+            }
+            return data + " -> null;";
         }
     }
 
@@ -47,21 +53,5 @@ public class LinkInversion {
 
         /* fix the head pointer */
         return rest;
-    }
-
-    public static void main(String[] args) {
-        Node<Integer> link = new Node<>(1);
-        link.next = new Node<>(2);
-        link.next.next = new Node<>(3);
-        link.next.next.next = new Node<>(4);
-        link.next.next.next.next = new Node<>(5);
-
-        ArrayList<String> linkData = new ArrayList<>();
-        link = reverseLink2(link);
-        while (link != null) {
-            linkData.add(String.valueOf(link.data));
-            link = link.next;
-        }
-        System.out.println(String.join(" -> ", linkData));
     }
 }
