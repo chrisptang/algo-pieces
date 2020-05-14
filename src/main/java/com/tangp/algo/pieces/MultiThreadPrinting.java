@@ -1,5 +1,8 @@
 package com.tangp.algo.pieces;
 
+import com.tangp.algo.pieces.utils.Stopwatch;
+
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -8,23 +11,37 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MultiThreadPrinting {
 
-    public static void main(String[] args) throws InterruptedException {
-//        System.out.println("printing 0~100 with 3 threads...");
-//        multiThreadPrinting(3, 100);
+    private static volatile CountDownLatch COUNT_DOWN_LATCH;
+
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("printing 0~100 with 3 threads...");
+        multiThreadPrinting(3, 100);
+        Thread.sleep(1000L);
+
 
         System.out.println("printing 0~100 with 5 threads...");
+        COUNT_DOWN_LATCH = new CountDownLatch(5);
+        final Stopwatch stopwatch = Stopwatch.createAndStart();
         multiThreadPrinting(5, 100);
+        COUNT_DOWN_LATCH.await();
+        stopwatch.stop();
+        System.out.println("Total cost:" + stopwatch.getDuration());
         Thread.sleep(1000L);
 
         System.out.println("printing 0~100 with 5 circled threads...");
+        COUNT_DOWN_LATCH = new CountDownLatch(5);
+        final Stopwatch stopwatch2 = Stopwatch.createAndStart();
         printWithCircledThread(5, 100);
+        COUNT_DOWN_LATCH.await();
+        stopwatch2.stop();
+        System.out.println("Total cost:" + stopwatch2.getDuration());
     }
 
     protected static void multiThreadPrinting(final int n, final int timesToPrint) {
-        final Object lock = new Object();
-        AtomicInteger counter = new AtomicInteger(0);
+        final AtomicInteger counter = new AtomicInteger(0);
         for (int i = 0; i < n; i++) {
-            new PrintingThread(i, lock, n, counter, timesToPrint).start();
+            new PrintingThread(i, n, counter, timesToPrint).start();
         }
     }
 
@@ -34,16 +51,13 @@ public class MultiThreadPrinting {
 
         protected final int threadCount;
 
-        private final Object lock;
-
         private final AtomicInteger counter;
 
         private final int timesToPrint;
 
-        public PrintingThread(int i, Object lock, int threadCount, AtomicInteger counter, int timesToPrint) {
+        public PrintingThread(int i, int threadCount, AtomicInteger counter, int timesToPrint) {
             this.index = i;
             this.threadCount = threadCount;
-            this.lock = lock;
             this.counter = counter;
             this.timesToPrint = timesToPrint;
             this.setName("thread:" + this.index);
@@ -53,18 +67,21 @@ public class MultiThreadPrinting {
         public void run() {
             while (true) {
                 try {
-                    synchronized (lock) {
+                    synchronized (counter) {
                         if (counter.get() >= timesToPrint) {
-                            lock.notifyAll();
+                            counter.notifyAll();
+                            if (null != COUNT_DOWN_LATCH) {
+                                COUNT_DOWN_LATCH.countDown();
+                            }
                             return;
                         }
                         while (counter.get() % threadCount != this.index && counter.get() <= timesToPrint) {
-                            lock.wait();
+                            counter.wait();
                         }
                         if (counter.get() <= timesToPrint) {
                             System.out.println(this.getName() + " " + counter.getAndIncrement());
                         }
-                        lock.notifyAll();
+                        counter.notifyAll();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -122,6 +139,9 @@ public class MultiThreadPrinting {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+            if (null != COUNT_DOWN_LATCH) {
+                COUNT_DOWN_LATCH.countDown();
             }
         }
     }
