@@ -1,5 +1,7 @@
 package com.tangp.algo.pieces;
 
+import com.tangp.algo.pieces.entities.Node;
+
 /**
  * 判断一个单向链表是否有环；
  */
@@ -36,15 +38,5 @@ public class IsLinkCircled {
             }
         }
         return false;
-    }
-
-    protected static class Node<T> {
-        protected T data;
-
-        protected Node<T> next;
-
-        public Node(T data) {
-            this.data = data;
-        }
     }
 }
