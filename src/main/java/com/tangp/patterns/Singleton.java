@@ -31,7 +31,9 @@ public class Singleton {
      */
     public static Singleton getInstance() {
         if (null == SINGLETON) {
-            SINGLETON = new Singleton();
+            synchronized (new Object()){
+                SINGLETON = new Singleton();
+            }
         }
         return SINGLETON;
     }

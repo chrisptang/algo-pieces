@@ -1,0 +1,41 @@
+@relation ionosphere
+
+@attribute a01 numeric
+@attribute a02 numeric
+@attribute a03 numeric
+@attribute a04 numeric
+@attribute a05 numeric
+@attribute a06 numeric
+@attribute a07 numeric
+@attribute a08 numeric
+@attribute a09 numeric
+@attribute a10 numeric
+@attribute a11 numeric
+@attribute a12 numeric
+@attribute a13 numeric
+@attribute a14 numeric
+@attribute a15 numeric
+@attribute a16 numeric
+@attribute a17 numeric
+@attribute a18 numeric
+@attribute a19 numeric
+@attribute a20 numeric
+@attribute a21 numeric
+@attribute a22 numeric
+@attribute a23 numeric
+@attribute a24 numeric
+@attribute a25 numeric
+@attribute a26 numeric
+@attribute a27 numeric
+@attribute a28 numeric
+@attribute a29 numeric
+@attribute a30 numeric
+@attribute a31 numeric
+@attribute a32 numeric
+@attribute a33 numeric
+@attribute a34 numeric
+@attribute class {b, g}
+
+@data
+1,0,0.84710,0.13533,0.73638,-0.06151,0.87873,0.08260,0.88928,-0.09139,0.78735,0.06678,0.80668,-0.00351,0.79262,-0.01054,0.85764,-0.04569,0.87170,-0.03515,0.81722,-0.09490,0.71002,0.04394,0.86467,-0.15114,0.81147,-0.04822,0.78207,-0.00703,0.75747,-0.06678,0.85764,-0.06151,g
+1,0,-1,-0.59677,0,0,-1,0.64516,-0.87097,1,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0.29839,0.23387,1,0.51613,0,0,0,0,0,0,b
