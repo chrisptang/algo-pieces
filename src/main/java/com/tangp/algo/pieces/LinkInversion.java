@@ -24,6 +24,13 @@ public class LinkInversion {
         }
     }
 
+    /**
+     * 循环法
+     *
+     * @param link
+     * @param <T>
+     * @return
+     */
     public static <T> Node<T> reverseLink(Node<T> link) {
         if (link == null || link.next == null) {
             return link;
@@ -39,6 +46,14 @@ public class LinkInversion {
         return head;
     }
 
+
+    /**
+     * 递归法；
+     *
+     * @param link
+     * @param <T>
+     * @return
+     */
     public static <T> Node<T> reverseLink2(Node<T> link) {
         if (link == null || link.next == null) {
             return link;
