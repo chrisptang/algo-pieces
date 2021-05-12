@@ -67,6 +67,15 @@ public class ArraySorting {
         mergeSortInner(arr, 0, arr.length);
     }
 
+
+    /**
+     * 归并排序，其实就是将两个子数组合并为一个新的数组并返回。
+     * 需要额外的空间O(n)；
+     *
+     * @param arr
+     * @param start
+     * @param end
+     */
     private static void mergeSortInner(int[] arr, int start, int end) {
         if (start >= end) {
             return;
