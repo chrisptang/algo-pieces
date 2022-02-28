@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * 计算给定字符串中最长不重复子串
  *
@@ -37,7 +35,7 @@ public class LongestNonRepeatString {
 
         final Set<String> result = new HashSet<>();
 
-        //用于保存查找到的不重复字串的各个字符所在的index；
+        //用于保存查找到的不重复字串的各个字符所在的index；`
         Map<Character, Integer> characterIndexMarker = new HashMap<>(str.length());
 
         //当前查找到的最长字串的长度；
@@ -78,7 +76,7 @@ public class LongestNonRepeatString {
      * @param tempResult
      * @return
      */
-    private static int qualifyTempResult(@NotNull Set<String> resultSet, @NotNull String tempResult) {
+    private static int qualifyTempResult(Set<String> resultSet, String tempResult) {
         if (resultSet.isEmpty()) {
             resultSet.add(tempResult);
             return tempResult.length();
